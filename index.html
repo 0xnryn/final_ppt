@@ -452,36 +452,32 @@
   </div>
 </section>
 
-<!-- SLIDE 09: EXPERIMENTAL RESULTS & LIVE DEMO (ZAIN) -->
+<!-- SLIDE 09: HOW DETERMINISM AND TPM WORK TOGETHER (ZAIN) -->
 <section class="slide" data-slide="9">
   <div class="slide-header">
-    <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>05 &middot; Experimental Proof &amp; Demo</span><span class="speaker-badge">Zain</span></div>
+    <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>05 &middot; End-to-End Synergies</span><span class="speaker-badge">Zain</span></div>
     <div class="slide-num reveal reveal-1"><span>09</span> / 11</div>
   </div>
-  <div class="eyebrow reveal reveal-1">Empirical Verification &amp; Live CLI Execution</div>
-  <h2 class="h2 reveal reveal-2">Bit-Exact Output &amp; <em>TPM Attestation Results</em></h2>
+  <div class="eyebrow reveal reveal-1">Closing the Gap Between Execution &amp; Attestation</div>
+  <h2 class="h2 reveal reveal-2">How <em>Determinism</em> and <em>TPM</em> Work Together</h2>
 
   <div class="two-col reveal reveal-3">
     <div class="col">
-      <div class="terminal">
-        <div><span class="prompt">$</span> <span class="cmd">uv run python -m cvdllm.determinism_test</span></div>
-        <div class="muted">Model: qwen2.5-0.5b-instruct-q4_k_m.gguf (1 thread)</div>
-        <div>Run 01 | <span class="hash">9eb58e47c4b0a4accc0068fb88c3d4ef...</span></div>
-        <div>Run 02 | <span class="hash">9eb58e47c4b0a4accc0068fb88c3d4ef...</span></div>
-        <div>Run 03 | <span class="hash">9eb58e47c4b0a4accc0068fb88c3d4ef...</span></div>
-        <div>Run 04 | <span class="hash">9eb58e47c4b0a4accc0068fb88c3d4ef...</span></div>
-        <div>Run 05 | <span class="hash">9eb58e47c4b0a4accc0068fb88c3d4ef...</span></div>
-        <div class="success">SUCCESS: 5/5 runs produced 100% identical hashes!</div>
+      <div class="card-box">
+        <h4><i class="fa-solid fa-repeat"></i> Why TPM Alone Isn't Enough</h4>
+        <p>A TPM signature proves <em>who</em> signed an output and that it wasn't altered afterward—but if the LLM runs non-deterministically, re-running the same prompt yields a completely different hash, making independent verification impossible.</p>
+      </div>
+      <div class="card-box">
+        <h4><i class="fa-solid fa-link"></i> Why Determinism Alone Isn't Enough</h4>
+        <p>Single-thread CPU execution guarantees the same prompt always produces the exact same text, but without hardware signing, anyone can forge or edit a plain-text log after the fact.</p>
       </div>
     </div>
     <div class="col">
-      <div class="terminal">
-        <div><span class="prompt">$</span> <span class="cmd">uv run cvdllm</span></div>
-        <div class="highlight">{ "response": "Cryptography verification...", "timestamp": "2026-10-18T14:59:49+00:00" }</div>
-        <br>
-        <div>SHA-256: <span class="hash">f4c13e15dfa14aa54effb69d84e10400...</span></div>
-        <div>TPM Sig: <span class="muted">0oPtN+ExdsF2q4JeMbfN5yCk0Y/fE2Nw...</span></div>
-        <div>Status : <span class="success">TRUE (Verified by TPM 2.0 Hardware)</span></div>
+      <div class="card-box highlight-card">
+        <h4><i class="fa-solid fa-shield-halved"></i> Combined Verifiable Proof</h4>
+        <p>• <strong>1. Reproducible Digest:</strong> Deterministic execution ensures any auditor running the same model and prompt arrives at the exact same canonical SHA-256 hash.</p>
+        <p>• <strong>2. Hardware-Bound Receipt:</strong> TPM 2.0 signs that digest with an unexportable RSA-2048 key, binding the reproducible output to physical silicon.</p>
+        <p>• <strong>3. Replay + Tamper Proof:</strong> Auditors can both verify the cryptographic signature offline and re-execute the prompt to confirm bit-exact provenance.</p>
       </div>
     </div>
   </div>
