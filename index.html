@@ -161,7 +161,7 @@
 </head>
 <body>
 <div class="grid-bg"></div>
-<div class="progress-bar" id="progress" style="width:9.09%"></div>
+<div class="progress-bar" id="progress" style="width:8.33%"></div>
 
 <div class="deck" id="deck">
 
@@ -201,7 +201,7 @@
 <section class="slide" data-slide="2">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>01 &middot; Introduction &amp; Architecture</span><span class="speaker-badge">Sudhanshu</span></div>
-    <div class="slide-num reveal reveal-1"><span>02</span> / 11</div>
+    <div class="slide-num reveal reveal-1"><span>02</span> / 12</div>
   </div>
   <div class="eyebrow reveal reveal-1">Eliminating Black-Box Non-Determinism</div>
   <h2 class="h2 reveal reveal-2">Problem Statement &amp; <em>Core Pipeline</em></h2>
@@ -240,7 +240,7 @@
 <section class="slide" data-slide="3">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>02 &middot; Hardware &amp; Infrastructure</span><span class="speaker-badge">Sudhanshu</span></div>
-    <div class="slide-num reveal reveal-1"><span>03</span> / 11</div>
+    <div class="slide-num reveal reveal-1"><span>03</span> / 12</div>
   </div>
   <div class="eyebrow reveal reveal-1">Hardware Root of Trust &amp; Declarative Build</div>
   <h2 class="h2 reveal reveal-2">TPM 2.0 Hardware &amp; <em>System Architecture</em></h2>
@@ -273,7 +273,7 @@
 <section class="slide" data-slide="4">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>03 &middot; LLM Model Evolution</span><span class="speaker-badge">Parth</span></div>
-    <div class="slide-num reveal reveal-1"><span>04</span> / 11</div>
+    <div class="slide-num reveal reveal-1"><span>04</span> / 12</div>
   </div>
   <div class="eyebrow reveal reveal-1">Architectural Migration &amp; Engineering Trade-offs</div>
   <h2 class="h2 reveal reveal-2">From <em>Cactus Needle 2</em> to <em>Qwen 2.5 (0.5B)</em></h2>
@@ -337,7 +337,7 @@
 <section class="slide" data-slide="5">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>03 &middot; LLM Engine &amp; Adaptation</span><span class="speaker-badge">Parth</span></div>
-    <div class="slide-num reveal reveal-1"><span>05</span> / 11</div>
+    <div class="slide-num reveal reveal-1"><span>05</span> / 12</div>
   </div>
   <div class="eyebrow reveal reveal-1">Controlled Inference &amp; Parameter-Efficient Tuning</div>
   <h2 class="h2 reveal reveal-2">Deterministic Execution &amp; <em>LoRA Domain Adaptation</em></h2>
@@ -368,7 +368,7 @@
 <section class="slide" data-slide="6">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>03 &middot; LoRA Fine-Tuning</span><span class="speaker-badge">Parth</span></div>
-    <div class="slide-num reveal reveal-1"><span>06</span> / 11</div>
+    <div class="slide-num reveal reveal-1"><span>06</span> / 12</div>
   </div>
   <div class="eyebrow reveal reveal-1">Lightweight Adaptation &amp; Adapter Packaging</div>
   <h2 class="h2 reveal reveal-2">CPU-Friendly <em>LoRA Fine-Tuning</em></h2>
@@ -399,7 +399,7 @@
 <section class="slide" data-slide="7">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>04 &middot; Cryptography &amp; Attestation</span><span class="speaker-badge">Vedant</span></div>
-    <div class="slide-num reveal reveal-1"><span>07</span> / 11</div>
+    <div class="slide-num reveal reveal-1"><span>07</span> / 12</div>
   </div>
   <div class="eyebrow reveal reveal-1">Canonical Serialization &amp; Hardware Signing</div>
   <h2 class="h2 reveal reveal-2">SHA-256 Canonicalization &amp; <em>TPM Signing</em></h2>
@@ -408,16 +408,12 @@
     <div class="col">
       <div class="card-box">
         <h4><i class="fa-solid fa-fingerprint"></i> Step 1: Canonical Semantic Hashing</h4>
-        <div class="math">
-          $$H = \mathrm{SHA\text{-}256}\big(\mathrm{json.dumps}(P,\; \mathrm{sort\_keys=True})\big)$$
-        </div>
+        <p><strong>The inference payload is canonically serialized into JSON with alphabetically sorted keys and hashed via SHA-256 to produce a unique 32-byte fingerprint.</strong></p>
         <p>Volatile runtime metrics (RAM, tokens/sec) are excluded. <code>sort_keys=True</code> guarantees identical byte order regardless of dictionary insertion order.</p>
       </div>
       <div class="card-box">
         <h4><i class="fa-solid fa-lock"></i> Step 2: Hardware-Bound Signature</h4>
-        <div class="math">
-          $$S = \mathrm{Sign}_{\text{TPM\_Priv}}(H)$$
-        </div>
+        <p><strong>The TPM 2.0 security chip signs the SHA-256 digest directly inside isolated hardware using its unexportable private key.</strong></p>
         <p>The 32-byte SHA-256 digest is passed to TPM 2.0 via <code>tpm2_sign</code>, producing a non-repudiable RSA-2048 signature.</p>
       </div>
     </div>
@@ -431,11 +427,44 @@
   </div>
 </section>
 
-<!-- SLIDE 08: MATHEMATICAL DETERMINISM (ZAIN) -->
+<!-- SLIDE 08: CRYPTOGRAPHY IN THE PROJECT (VEDANT) -->
 <section class="slide" data-slide="8">
   <div class="slide-header">
+    <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>04 &middot; Cryptography Deep Dive</span><span class="speaker-badge">Vedant</span></div>
+    <div class="slide-num reveal reveal-1"><span>08</span> / 12</div>
+  </div>
+  <div class="eyebrow reveal reveal-1">Security Guarantees &amp; Trust Model</div>
+  <h2 class="h2 reveal reveal-2">How <em>Cryptography</em> Secures <code>cvdllm</code></h2>
+
+  <div class="two-col reveal reveal-3">
+    <div class="col">
+      <div class="card-box">
+        <h4><i class="fa-solid fa-shield-halved"></i> SHA-256 Integrity &amp; Avalanche Effect</h4>
+        <p><strong>Tamper Detection:</strong> Every generated response is distilled into a fixed 256-bit cryptographic digest.</p>
+        <p>Altering even a single character, whitespace, or punctuation mark in the prompt or LLM output completely changes the resulting hash, immediately exposing any post-inference manipulation.</p>
+      </div>
+      <div class="card-box">
+        <h4><i class="fa-solid fa-key"></i> RSA-2048 Asymmetric Signing</h4>
+        <p><strong>Hardware-Locked Private Key:</strong> Generated inside the TPM 2.0 chip at handle <code>0x81010002</code>, the private key is never exposed to RAM, disk, or the OS.</p>
+        <p><strong>Public Key Distribution:</strong> The corresponding public key is freely exported in PEM format so any third party can validate authenticity.</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card-box highlight-card">
+        <h4><i class="fa-solid fa-check-double"></i> Zero-Trust Offline Verification</h4>
+        <p>• <strong>1. Recompute Digest:</strong> The auditor canonically serializes the received JSON output and calculates its SHA-256 hash locally.</p>
+        <p>• <strong>2. Validate Signature:</strong> <code>verify_signature.py</code> uses OpenSSL and the exported TPM public key to verify the RSA-2048 signature against the digest.</p>
+        <p>• <strong>3. Non-Repudiation:</strong> A valid match proves the exact output originated from that specific physical TPM hardware and has remained untouched since generation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 09: MATHEMATICAL DETERMINISM (ZAIN) -->
+<section class="slide" data-slide="9">
+  <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>05 &middot; Determinism Analysis</span><span class="speaker-badge">Zain</span></div>
-    <div class="slide-num reveal reveal-1"><span>08</span> / 11</div>
+    <div class="slide-num reveal reveal-1"><span>09</span> / 12</div>
   </div>
   <div class="eyebrow reveal reveal-1">Why Parallel Hardware Breaks Reproducibility</div>
   <h2 class="h2 reveal reveal-2">Floating-Point <em>Associativity Invariant</em></h2>
@@ -452,11 +481,11 @@
   </div>
 </section>
 
-<!-- SLIDE 09: HOW DETERMINISM AND TPM WORK TOGETHER (ZAIN) -->
-<section class="slide" data-slide="9">
+<!-- SLIDE 10: HOW DETERMINISM AND TPM WORK TOGETHER (ZAIN) -->
+<section class="slide" data-slide="10">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>05 &middot; End-to-End Synergies</span><span class="speaker-badge">Zain</span></div>
-    <div class="slide-num reveal reveal-1"><span>09</span> / 11</div>
+    <div class="slide-num reveal reveal-1"><span>10</span> / 12</div>
   </div>
   <div class="eyebrow reveal reveal-1">Closing the Gap Between Execution &amp; Attestation</div>
   <h2 class="h2 reveal reveal-2">How <em>Determinism</em> and <em>TPM</em> Work Together</h2>
@@ -483,11 +512,11 @@
   </div>
 </section>
 
-<!-- SLIDE 10: REAL-WORLD APPLICATIONS (ZAIN) -->
-<section class="slide" data-slide="10">
+<!-- SLIDE 11: REAL-WORLD APPLICATIONS (ZAIN) -->
+<section class="slide" data-slide="11">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>06 &middot; Impact &amp; Use Cases</span><span class="speaker-badge">Zain</span></div>
-    <div class="slide-num reveal reveal-1"><span>10</span> / 11</div>
+    <div class="slide-num reveal reveal-1"><span>11</span> / 12</div>
   </div>
   <div class="eyebrow reveal reveal-1">Where Cryptographic AI Provenance Matters</div>
   <h2 class="h2 reveal reveal-2">Real-World <em>Applications</em></h2>
@@ -516,11 +545,11 @@
   </div>
 </section>
 
-<!-- SLIDE 11: CONCLUSION & CITATION (ALL) -->
-<section class="slide" data-slide="11">
+<!-- SLIDE 12: CONCLUSION & CITATION (ALL) -->
+<section class="slide" data-slide="12">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>07 &middot; Summary &amp; Publication</span><span class="speaker-badge">Team</span></div>
-    <div class="slide-num reveal reveal-1"><span>11</span> / 11</div>
+    <div class="slide-num reveal reveal-1"><span>12</span> / 12</div>
   </div>
   <div class="eyebrow reveal reveal-1">Archival Release &amp; Key Takeaways</div>
   <h2 class="h2 reveal reveal-2">Conclusion &amp; <em>Research Publication</em></h2>
@@ -564,7 +593,7 @@
 
 <!-- Navigation -->
 <div class="nav-bar">
-  <div class="nav-counter"><span id="currentSlide">01</span> &nbsp;/&nbsp; 11</div>
+  <div class="nav-counter"><span id="currentSlide">01</span> &nbsp;/&nbsp; 12</div>
   <div class="nav-dots" id="navDots"></div>
   <div class="nav-controls">
     <button class="nav-btn" id="prevBtn" aria-label="Previous Slide"><i class="fa-solid fa-arrow-left"></i></button>
