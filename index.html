@@ -201,7 +201,7 @@
 <section class="slide" data-slide="2">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>01 &middot; Introduction &amp; Architecture</span><span class="speaker-badge">Sudhanshu</span></div>
-    <div class="slide-num reveal reveal-1"><span>02</span> / 12</div>
+    <div class="slide-num reveal reveal-1"><span>02</span> / 11</div>
   </div>
   <div class="eyebrow reveal reveal-1">Eliminating Black-Box Non-Determinism</div>
   <h2 class="h2 reveal reveal-2">Problem Statement &amp; <em>Core Pipeline</em></h2>
@@ -240,7 +240,7 @@
 <section class="slide" data-slide="3">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>02 &middot; Hardware &amp; Infrastructure</span><span class="speaker-badge">Sudhanshu</span></div>
-    <div class="slide-num reveal reveal-1"><span>03</span> / 12</div>
+    <div class="slide-num reveal reveal-1"><span>03</span> / 11</div>
   </div>
   <div class="eyebrow reveal reveal-1">Hardware Root of Trust &amp; Declarative Build</div>
   <h2 class="h2 reveal reveal-2">TPM 2.0 Hardware &amp; <em>System Architecture</em></h2>
@@ -273,7 +273,7 @@
 <section class="slide" data-slide="4">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>03 &middot; LLM Model Evolution</span><span class="speaker-badge">Parth</span></div>
-    <div class="slide-num reveal reveal-1"><span>04</span> / 12</div>
+    <div class="slide-num reveal reveal-1"><span>04</span> / 11</div>
   </div>
   <div class="eyebrow reveal reveal-1">Architectural Migration &amp; Engineering Trade-offs</div>
   <h2 class="h2 reveal reveal-2">From <em>Cactus Needle 2</em> to <em>Qwen 2.5 (0.5B)</em></h2>
@@ -337,7 +337,7 @@
 <section class="slide" data-slide="5">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>03 &middot; LLM Engine &amp; Adaptation</span><span class="speaker-badge">Parth</span></div>
-    <div class="slide-num reveal reveal-1"><span>05</span> / 12</div>
+    <div class="slide-num reveal reveal-1"><span>05</span> / 11</div>
   </div>
   <div class="eyebrow reveal reveal-1">Controlled Inference &amp; Parameter-Efficient Tuning</div>
   <h2 class="h2 reveal reveal-2">Deterministic Execution &amp; <em>LoRA Domain Adaptation</em></h2>
@@ -368,28 +368,28 @@
 <section class="slide" data-slide="6">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>03 &middot; LoRA Fine-Tuning</span><span class="speaker-badge">Parth</span></div>
-    <div class="slide-num reveal reveal-1"><span>06</span> / 12</div>
+    <div class="slide-num reveal reveal-1"><span>06</span> / 11</div>
   </div>
-  <div class="eyebrow reveal reveal-1">Customizing the Model with LoRA</div>
+  <div class="eyebrow reveal reveal-1">Lightweight Adaptation &amp; Adapter Packaging</div>
   <h2 class="h2 reveal reveal-2">CPU-Friendly <em>LoRA Fine-Tuning</em></h2>
 
   <div class="two-col reveal reveal-3">
     <div class="col">
       <div class="card-box">
-        <h4><i class="fa-solid fa-microchip"></i> How We Train It</h4>
-        <p>• <strong>Runs on Standard Hardware:</strong> We only train a small fraction of the weights, so fine-tuning doesn't require expensive data center GPUs.</p>
-        <p>• <strong>Targeted Tweaks:</strong> Small adapter layers plug directly into the model's attention blocks to adjust its tone and output format without retraining from scratch.</p>
+        <h4><i class="fa-solid fa-microchip"></i> Training Setup</h4>
+        <p>• <strong>Low Memory Footprint:</strong> Training only a small fraction of parameters lets you fine-tune on standard consumer hardware.</p>
+        <p>• <strong>Targeted Updates:</strong> Adapters attach directly to attention layers, steering output style and format without full retraining.</p>
       </div>
       <div class="card-box">
-        <h4><i class="fa-solid fa-code-merge"></i> Merging into GGUF</h4>
-        <p>Before deployment, we merge the trained adapter directly into the base <code>Qwen2.5-0.5B</code> GGUF file so everything runs from a single, self-contained binary.</p>
+        <h4><i class="fa-solid fa-code-merge"></i> GGUF Weight Merging</h4>
+        <p>Trained adapter weights fold cleanly into the base <code>Qwen2.5-0.5B</code> GGUF binary before deployment, keeping inference self-contained.</p>
       </div>
     </div>
     <div class="col">
       <div class="card-box">
-        <h4><i class="fa-solid fa-boxes-stacked"></i> Swapping &amp; Tracking Models</h4>
-        <p>• <strong>Tiny Adapter Files:</strong> Each fine-tune saves as a small separate file instead of storing multiple copies of the full base model.</p>
-        <p>• <strong>Clear Version Tracking:</strong> Merging an adapter creates a new GGUF file hash, linking every TPM-signed receipt to the exact model version that generated it.</p>
+        <h4><i class="fa-solid fa-boxes-stacked"></i> Modular Task Switching</h4>
+        <p>• <strong>Standalone Adapters:</strong> Each fine-tune saves as a tiny separate file instead of duplicating the full base model.</p>
+        <p>• <strong>Auditable Provenance:</strong> Every merged model produces a distinct GGUF file hash tied directly to its TPM-signed execution receipts.</p>
       </div>
     </div>
   </div>
@@ -399,7 +399,7 @@
 <section class="slide" data-slide="7">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>04 &middot; Cryptography &amp; Attestation</span><span class="speaker-badge">Vedant</span></div>
-    <div class="slide-num reveal reveal-1"><span>07</span> / 12</div>
+    <div class="slide-num reveal reveal-1"><span>07</span> / 11</div>
   </div>
   <div class="eyebrow reveal reveal-1">Canonical Serialization &amp; Hardware Signing</div>
   <h2 class="h2 reveal reveal-2">SHA-256 Canonicalization &amp; <em>TPM Signing</em></h2>
@@ -431,79 +431,32 @@
   </div>
 </section>
 
-<!-- SLIDE 08: ZERO-TRUST VERIFICATION (VEDANT) -->
+<!-- SLIDE 08: MATHEMATICAL DETERMINISM (ZAIN) -->
 <section class="slide" data-slide="8">
   <div class="slide-header">
-    <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>04 &middot; Zero-Trust Audit</span><span class="speaker-badge">Vedant</span></div>
-    <div class="slide-num reveal reveal-1"><span>08</span> / 12</div>
-  </div>
-  <div class="eyebrow reveal reveal-1">Independent Third-Party Validation</div>
-  <h2 class="h2 reveal reveal-2">Zero-Trust <em>Verification Workflow</em></h2>
-
-  <div class="two-col reveal reveal-3">
-    <div class="col">
-      <div class="card-box">
-        <h4><i class="fa-solid fa-shield-check"></i> Verifying Without the Model or TPM</h4>
-        <p>An auditor only needs three public artifacts:</p>
-        <p>1. <strong>Canonical Payload / SHA-256 Hash ($H$)</strong></p>
-        <p>2. <strong>TPM RSA-2048 Public Key ($K_{\text{pub}}$)</strong></p>
-        <p>3. <strong>Hardware Signature ($S$)</strong></p>
-        <p style="margin-top:10px">Any single-bit modification to the AI output invalidates $H$ and causes signature verification to fail immediately.</p>
-      </div>
-    </div>
-    <div class="col">
-      <div class="terminal">
-        <div><span class="prompt">$</span> <span class="cmd">uv run python -m tpm.verify_signature &lt;SHA256&gt; &lt;SIG_B64&gt;</span></div>
-        <div class="muted"># 1. Reconstructs binary digest from SHA-256 hex</div>
-        <div class="muted"># 2. Loads exported TPM RSA-2048 public key</div>
-        <div class="muted"># 3. Validates PKCS#1 v1.5 / RSA signature</div>
-        <br>
-        <div class="success">Signature Status: VALID (Cryptographically Verified)</div>
-      </div>
-      <div class="card-box">
-        <h4><i class="fa-solid fa-ban"></i> Tamper Detection</h4>
-        <p>Changing even one character in the response text changes the SHA-256 digest and immediately returns <code>INVALID SIGNATURE</code>.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SLIDE 09: MATHEMATICAL DETERMINISM (ZAIN) -->
-<section class="slide" data-slide="9">
-  <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>05 &middot; Determinism Analysis</span><span class="speaker-badge">Zain</span></div>
-    <div class="slide-num reveal reveal-1"><span>09</span> / 12</div>
+    <div class="slide-num reveal reveal-1"><span>08</span> / 11</div>
   </div>
   <div class="eyebrow reveal reveal-1">Why Parallel Hardware Breaks Reproducibility</div>
   <h2 class="h2 reveal reveal-2">Floating-Point <em>Associativity Invariant</em></h2>
 
-  <div class="two-col reveal reveal-3">
-    <div class="col">
-      <div class="card-box">
-        <h4><i class="fa-solid fa-triangle-exclamation"></i> IEEE-754 Non-Associativity</h4>
-        <div class="math">
-          $$(a + b) + c \;\neq\; a + (b + c)$$
-        </div>
-        <p>In multi-threaded GPU kernels, dynamic warp scheduling alters floating-point accumulation order. Tiny rounding differences shift logits and cascade into diverging tokens.</p>
+  <div class="reveal reveal-3" style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <div class="card-box" style="padding:26px 30px">
+      <h4><i class="fa-solid fa-triangle-exclamation"></i> IEEE-754 Non-Associativity &amp; Single-Thread Reduction</h4>
+      <div class="math" style="font-size:18px;padding:14px 18px;margin:14px 0">
+        $$(a + b) + c \;\neq\; a + (b + c)$$
       </div>
-    </div>
-    <div class="col">
-      <div class="card-box">
-        <h4><i class="fa-solid fa-equals"></i> Deterministic Execution Function</h4>
-        <div class="math">
-          $$Y = f_{\text{1-thread}}(X,\; W_{\text{GGUF}},\; \text{Seed}_{0},\; T=0)$$
-        </div>
-        <p>Enforcing sequential single-thread reduction guarantees an invariant operation tree, producing bit-identical floating-point sums and token IDs on every run.</p>
-      </div>
+      <p style="font-size:15px;line-height:1.6">In multi-threaded GPU kernels, dynamic warp scheduling alters floating-point accumulation order across parallel cores. Even tiny rounding differences at the lowest bit shift output logits and cascade into diverging token sequences across runs.</p>
+      <p style="font-size:15px;line-height:1.6;margin-top:12px">Enforcing sequential single-thread CPU reduction locks a strict, invariant addition tree—guaranteeing bit-identical floating-point sums, identical logits, and the exact same generated tokens on every execution.</p>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 10: EXPERIMENTAL RESULTS & LIVE DEMO (ZAIN) -->
-<section class="slide" data-slide="10">
+<!-- SLIDE 09: EXPERIMENTAL RESULTS & LIVE DEMO (ZAIN) -->
+<section class="slide" data-slide="9">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>05 &middot; Experimental Proof &amp; Demo</span><span class="speaker-badge">Zain</span></div>
-    <div class="slide-num reveal reveal-1"><span>10</span> / 12</div>
+    <div class="slide-num reveal reveal-1"><span>09</span> / 11</div>
   </div>
   <div class="eyebrow reveal reveal-1">Empirical Verification &amp; Live CLI Execution</div>
   <h2 class="h2 reveal reveal-2">Bit-Exact Output &amp; <em>TPM Attestation Results</em></h2>
@@ -534,25 +487,20 @@
   </div>
 </section>
 
-<!-- SLIDE 11: REAL-WORLD APPLICATIONS (ZAIN) -->
-<section class="slide" data-slide="11">
+<!-- SLIDE 10: REAL-WORLD APPLICATIONS (ZAIN) -->
+<section class="slide" data-slide="10">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>06 &middot; Impact &amp; Use Cases</span><span class="speaker-badge">Zain</span></div>
-    <div class="slide-num reveal reveal-1"><span>11</span> / 12</div>
+    <div class="slide-num reveal reveal-1"><span>10</span> / 11</div>
   </div>
   <div class="eyebrow reveal reveal-1">Where Cryptographic AI Provenance Matters</div>
   <h2 class="h2 reveal reveal-2">Real-World <em>Applications</em></h2>
 
-  <div class="app-grid reveal reveal-3">
+  <div class="app-grid reveal reveal-3" style="grid-template-columns:repeat(2,1fr)">
     <div class="app-card">
       <i class="fa-solid fa-landmark"></i>
       <h4>Financial &amp; Loan Auditing</h4>
       <p>Provides mathematical proof of the exact model output behind automated credit or compliance decisions.</p>
-    </div>
-    <div class="app-card">
-      <i class="fa-solid fa-heart-pulse"></i>
-      <h4>Clinical Decision Logs</h4>
-      <p>Guarantees reproducible diagnostic summaries with tamper-evident timestamps for medical liability audits.</p>
     </div>
     <div class="app-card">
       <i class="fa-solid fa-gavel"></i>
@@ -565,11 +513,6 @@
       <p>Runs locally on TPM-equipped industrial gateways without requiring cloud connectivity or external GPUs.</p>
     </div>
     <div class="app-card">
-      <i class="fa-solid fa-code-branch"></i>
-      <h4>AI Supply Chain Integrity</h4>
-      <p>Detects silent model weight swaps or man-in-the-middle prompt/response tampering in production pipelines.</p>
-    </div>
-    <div class="app-card">
       <i class="fa-solid fa-bolt"></i>
       <h4>Millisecond Signing Overhead</h4>
       <p>SHA-256 canonicalization and TPM 2.0 signing add negligible latency (&lt;5 ms) to local CPU inference.</p>
@@ -577,11 +520,11 @@
   </div>
 </section>
 
-<!-- SLIDE 12: CONCLUSION & CITATION (ALL) -->
-<section class="slide" data-slide="12">
+<!-- SLIDE 11: CONCLUSION & CITATION (ALL) -->
+<section class="slide" data-slide="11">
   <div class="slide-header">
     <div class="slide-tag reveal reveal-1"><span class="dot"></span><span>07 &middot; Summary &amp; Publication</span><span class="speaker-badge">Team</span></div>
-    <div class="slide-num reveal reveal-1"><span>12</span> / 12</div>
+    <div class="slide-num reveal reveal-1"><span>11</span> / 11</div>
   </div>
   <div class="eyebrow reveal reveal-1">Archival Release &amp; Key Takeaways</div>
   <h2 class="h2 reveal reveal-2">Conclusion &amp; <em>Research Publication</em></h2>
@@ -625,7 +568,7 @@
 
 <!-- Navigation -->
 <div class="nav-bar">
-  <div class="nav-counter"><span id="currentSlide">01</span> &nbsp;/&nbsp; 12</div>
+  <div class="nav-counter"><span id="currentSlide">01</span> &nbsp;/&nbsp; 11</div>
   <div class="nav-dots" id="navDots"></div>
   <div class="nav-controls">
     <button class="nav-btn" id="prevBtn" aria-label="Previous Slide"><i class="fa-solid fa-arrow-left"></i></button>
